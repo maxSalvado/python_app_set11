@@ -1,0 +1,4 @@
+Flask==2.1.1
+Flask-RESTful==0.3.10
+flasgger==0.9.5
+flask-restplus==0.12.0
