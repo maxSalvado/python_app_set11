@@ -1,45 +1,9 @@
-from flask import Flask, request, jsonify
-from flasgger import Swagger, swag_from
+kuberenets:
 
-app = Flask(__name__)
-swagger = Swagger(app)
+kubectl run -i --tty --rm debug --image=alpine --restart=Never -- sh
 
+# Pull the Cosmos DB Emulator image
+docker pull mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator
 
-@app.route('/upload', methods=['POST'])
-@swag_from({
-    'parameters': [
-        {
-            'name': 'file',
-            'in': 'formData',
-            'type': 'file',
-            'required': True,
-            'description': 'The file to upload.'
-        }
-    ],
-    'responses': {
-        200: {
-            'description': 'File uploaded successfully.'
-        }
-    }
-})
-def upload_file():
-    """
-    Upload a file.
-    ---
-    consumes:
-      - multipart/form-data
-    produces:
-      - application/json
-    responses:
-      200:
-        description: File uploaded successfully.
-    """
-    uploaded_file = request.files['file']
-    # Do something with the uploaded file, like saving it to disk
-    # For example: uploaded_file.save('uploads/' + uploaded_file.filename)
-
-    return jsonify(message='File uploaded successfully'), 200
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+# Run the Cosmos DB Emulator container
+docker run -d -p 8081:8081 -p 10251:10251 -p 10252:10252 -p 10253:10253 -p 10254:10254 -p 10255:10255 mcr.microsoft.com/cosmosdb/linux/azure-cosmos-emulator
