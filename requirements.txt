@@ -2,3 +2,53 @@ Flask==2.1.1
 Flask-RESTful==0.3.10
 flasgger==0.9.5
 flask-restplus==0.12.0
+
+
+
+"""
+swagger: "2.0"
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+paths:
+  /your-api-route:
+    ...
+"""
+
+
+
+def post(self):
+    """
+    Your route documentation here.
+    ---
+    security:
+      - BearerAuth: []
+    parameters:
+      - in: body
+        name: request_body
+        description: The request body with multiple fields.
+        required: true
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+              description: The name to greet.
+            age:
+              type: integer
+              description: The age of the person.
+            email:
+              type: string
+              format: email
+              description: The email address of the person.
+          required:
+            - name
+    responses:
+      200:
+        description: Greeting message.
+        examples:
+          application/json:
+            message: "Hello John"
+    """
